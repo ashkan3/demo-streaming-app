@@ -7,7 +7,6 @@ variable "region" {
 variable "env" {
   type = string
   description = "Environment in which resources are going to be deployed."
-  default = "dev"
 }
 
 variable "stream_name" {
