@@ -3,6 +3,11 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "env" {
+  type = string
+  description = "Environment in which resources are going to be deployed."
+}
+
 variable "kinesis_analytics_app_name" {
   type = string
 }

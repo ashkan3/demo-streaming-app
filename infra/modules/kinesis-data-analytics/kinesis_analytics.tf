@@ -39,4 +39,9 @@ resource "aws_kinesis_analytics_application" "application" {
       }
     }
   }
+
+  tags = {
+    Environment = "${var.env}"
+    App         = "${var.kinesis_analytics_app_name}"
+  }
 }
