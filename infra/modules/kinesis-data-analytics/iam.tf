@@ -1,11 +1,8 @@
 resource "aws_iam_role" "role" {
 
-  name = "test_role"
+  name = "kinesis_analytics_role"
   assume_role_policy = "${file("${path.module}/role.json")}"
 
-  tags = {
-    tag-key = "tag-value"
-  }
 }
 
 resource "aws_iam_role_policy" "policy" {
