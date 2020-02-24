@@ -36,6 +36,24 @@ variable "kinesis_stream" {
   description = "Name of the Kinesis stream to connect to."
 }
 
+variable "key_arn" {
+  type = string
+  description = "ARN of the key that was used to encrypt messages on Kinesis stream."
+  default = ""
+}
+
+variable "lambda_arn" {
+  type = string
+  description = "ARN of pre-processing lambda."
+  default = ""
+}
+
+variable "lambda_version" {
+  type = string
+  description = "Version of lambda function to be called for pre-processing."
+  default = ""
+}
+
 variable "record_columns" {
   type = list(map(string))
   description = "The Record Column mapping for the streaming source data element."
