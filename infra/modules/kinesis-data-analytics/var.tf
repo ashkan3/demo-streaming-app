@@ -1,6 +1,7 @@
 variable "region" {
   type = string
   default = "us-east-1"
+  description = "Region to deploy the resources to."
 }
 
 variable "env" {
@@ -10,6 +11,7 @@ variable "env" {
 
 variable "kinesis_analytics_app_name" {
   type = string
+  description = "Name of kinesis data analytics application that will be created."
 }
 
 variable "name_prefix" {
@@ -32,9 +34,9 @@ variable "record_encoding" {
 variable "kinesis_stream" {
   type = string
   description = "Name of the Kinesis stream to connect to."
-  default = "data-stream-demo"
 }
 
 variable "record_columns" {
   type = list(map(string))
+  description = "The Record Column mapping for the streaming source data element."
 }
