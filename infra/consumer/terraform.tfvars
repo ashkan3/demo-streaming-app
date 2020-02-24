@@ -8,3 +8,5 @@ record_columns = [
 
 kinesis_analytics_app_name = "demo-app"
 name_prefix = "test"
+kinesis_stream = "data-stream-demo"
+env = "dev"
