@@ -12,7 +12,6 @@ variable "env" {
 variable "stream_name" {
   type = string
   description = "A name to identify the stream. This is unique to the AWS account and region the Stream is created in."
-  default = "data-stream-demo"
 }
 
 variable "shard_count" {
@@ -30,5 +29,4 @@ variable "retention_period" {
 variable "encryption_type" {
   type = string
   description = "The encryption type to use. The only acceptable values are NONE or KMS. The default value is NONE."
-  default = "NONE"
 }
