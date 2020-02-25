@@ -1,3 +1,3 @@
-output "kms_arn" {
+output "key_arn" {
   value = aws_kms_key.stream.arn
 }

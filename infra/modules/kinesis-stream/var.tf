@@ -25,8 +25,3 @@ variable "retention_period" {
   description = "Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24."
   default     = "24"
 }
-
-variable "encryption_type" {
-  type        = string
-  description = "The encryption type to use. The only acceptable values are NONE or KMS. The default value is NONE."
-}
