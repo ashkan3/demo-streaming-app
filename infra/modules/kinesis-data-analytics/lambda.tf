@@ -8,7 +8,7 @@ module lambda {
   runtime        = var.runtime
   memory_size    = var.memory_size
   concurrency    = var.concurrency
-  lambda_timeout = var.timeout
+  lambda_timeout = var.lambda_timeout
   log_retention  = var.log_retention
   role_arn       = aws_iam_role.lambda_role.arn
 

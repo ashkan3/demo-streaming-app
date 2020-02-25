@@ -89,7 +89,7 @@ variable "concurrency" {
 
 }
 
-variable "timeout" {
+variable "lambda_timeout" {
   type        = string
   description = "The amount of time your Lambda Function has to run in seconds."
   default     = "5"
