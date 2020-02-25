@@ -36,12 +36,6 @@ variable "kinesis_stream" {
   description = "Name of the Kinesis stream to connect to."
 }
 
-variable "key_arn" {
-  type        = string
-  description = "ARN of the key that was used to encrypt messages on Kinesis stream."
-  default     = ""
-}
-
 variable "lambda_name" {
   type        = string
   description = "Name of the Lambda function that pre-processes records in the stream."

@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
     ]
 
     resources = [
-      var.key_arn
+      data.terraform_remote_state.kinesis_stream.outputs.key_arn
     ]
 
     condition {
