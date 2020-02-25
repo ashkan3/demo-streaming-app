@@ -3,7 +3,7 @@ resource "aws_kms_key" "stream" {
   deletion_window_in_days = 10
 
   tags = {
-    Environment = "${var.env}"
-    App         = "${var.stream_name}"
+    Environment = var.env
+    App         = var.stream_name
   }
 }

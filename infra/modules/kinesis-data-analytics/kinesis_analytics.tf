@@ -1,20 +1,20 @@
 provider "aws" {
-  region     = "${var.region}"
+  region     = var.region
 }
 
 resource "aws_kinesis_analytics_application" "application" {
-  name = "${var.kinesis_analytics_app_name}"
+  name = var.kinesis_analytics_app_name
 
   inputs {
-    name_prefix = "${var.name_prefix}"
+    name_prefix = var.name_prefix
 
     kinesis_stream {
-      resource_arn = "${data.aws_kinesis_stream.stream.arn}"
-      role_arn     = "${aws_iam_role.role.arn}"
+      resource_arn = data.aws_kinesis_stream.stream.arn
+      role_arn     = aws_iam_role.role.arn
     }
 
     parallelism {
-      count = "${var.parallelism_count}"
+      count = var.parallelism_count
     }
 
     schema {
@@ -28,7 +28,7 @@ resource "aws_kinesis_analytics_application" "application" {
 
       }
 
-      record_encoding = "${var.record_encoding}"
+      record_encoding = var.record_encoding
 
       record_format {
         mapping_parameters {
@@ -41,7 +41,7 @@ resource "aws_kinesis_analytics_application" "application" {
   }
 
   tags = {
-    Environment = "${var.env}"
-    App         = "${var.kinesis_analytics_app_name}"
+    Environment = var.env
+    App         = var.kinesis_analytics_app_name
   }
 }
