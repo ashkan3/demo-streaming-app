@@ -24,32 +24,32 @@ data "aws_iam_policy_document" "lambda_policy_document" {
     resources = ["*"]
   }
 
-  statement {
-    sid = "ReadEncryptedInputKinesisStream"
-
-    actions = [
-      "kms:Decrypt",
-    ]
-
-    resources = [
-      var.key_arn
-    ]
-
-    condition {
-      test     = "StringEquals"
-      variable = "kms:ViaService"
-
-      values = [
-        "kinesis.us-east-1.amazonaws.com"
-      ]
-    }
-    condition {
-      test     = "StringLike"
-      variable = "kms:EncryptionContext:aws:kinesis:arn"
-      values = [
-        "arn:aws:kinesis:us-east-1:206612368495:stream/${var.kinesis_stream}"
-      ]
-    }
-  }
+  //  statement {
+  //    sid = "ReadEncryptedInputKinesisStream"
+  //
+  //    actions = [
+  //      "kms:Decrypt",
+  //    ]
+  //
+  //    resources = [
+  //      var.key_arn
+  //    ]
+  //
+  //    condition {
+  //      test     = "StringEquals"
+  //      variable = "kms:ViaService"
+  //
+  //      values = [
+  //        "kinesis.us-east-1.amazonaws.com"
+  //      ]
+  //    }
+  //    condition {
+  //      test     = "StringLike"
+  //      variable = "kms:EncryptionContext:aws:kinesis:arn"
+  //      values = [
+  //        "arn:aws:kinesis:us-east-1:206612368495:stream/${var.kinesis_stream}"
+  //      ]
+  //    }
+  //  }
 
 }
