@@ -39,13 +39,11 @@ variable "kinesis_stream" {
 variable "lambda_name" {
   type        = string
   description = "Name of the Lambda function that pre-processes records in the stream."
-  default     = ""
 }
 
 variable "lambda_version" {
   type        = string
   description = "Version of Lambda function to call for pre-processing records."
-  default     = ""
 }
 
 variable "sql_code" {
