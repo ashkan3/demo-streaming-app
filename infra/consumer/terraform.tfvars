@@ -11,11 +11,10 @@ record_columns = [
   }
 ]
 
-kinesis_analytics_app_name = "demo-app"
-name_prefix                = "test"
+kinesis_analytics_app_name = "analytics-demo-app"
+name_prefix                = "SOURCE_SQL_STREAM"
 kinesis_stream             = "data-stream-demo"
 env                        = "dev"
-key_arn                    = "arn:aws:kms:us-east-1:206612368495:key/3d8f2360-a2d9-4a52-8a35-31e1de35179d"
 lambda_name                = "data-transformation"
 lambda_version             = "$LATEST"
-sql_code                   = "CREATE OR REPLACE STREAM \"DESTINATION_SQL_STREAM\" (COUNTRY VARCHAR(16), COUNTRY_COUNT INT);\nCREATE OR REPLACE PUMP \"STREAM_PUMP\" AS INSERT INTO \"DESTINATION_SQL_STREAM\";\nSELECT STREAM COUNTRY, COUNT(*) AS COUNTRY_COUNT FROM \"SOURCE_SQL_STREAM_001\" GROUP BY COUNTRY , STEP(\"SOURCE_SQL_STREAM_001\".ROWTIME BY INTERVAL '60' SECOND); "
+sql_code                   = "CREATE OR REPLACE STREAM \"DESTINATION_SQL_STREAM\" (COUNTRY VARCHAR(16), COUNTRY_COUNT INT);\nCREATE OR REPLACE PUMP \"STREAM_PUMP\" AS INSERT INTO \"DESTINATION_SQL_STREAM\"\nSELECT STREAM\n\tCOUNTRY,\n\tCOUNT(*) AS COUNTRY_COUNT FROM \"SOURCE_SQL_STREAM_001\"\nGROUP BY COUNTRY , STEP(\"SOURCE_SQL_STREAM_001\".ROWTIME BY INTERVAL '60' SECOND);"
