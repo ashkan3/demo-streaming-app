@@ -1,7 +1,0 @@
-env           = "dev"
-function_name = "demo-app"
-filename      = "lambda.zip"
-description   = "pre-processing Lambda function"
-handler       = "transformer.handler"
-runtime       = "nodejs12.x"
-concurrency   = "5"

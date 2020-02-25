@@ -3,5 +3,5 @@ include {
 }
 
 terraform {
-  source = "../modules/kinesis-stream"
+  source = "../../../modules/kinesis-stream"
 }

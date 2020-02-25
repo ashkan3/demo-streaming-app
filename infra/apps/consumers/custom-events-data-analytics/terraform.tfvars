@@ -11,10 +11,16 @@ record_columns = [
   }
 ]
 
-kinesis_analytics_app_name = "analytics-demo-app"
-name_prefix                = "SOURCE_SQL_STREAM"
-kinesis_stream             = "data-stream-demo"
 env                        = "dev"
-lambda_name                = "data-transformation"
+kinesis_analytics_app_name = "custom-events-data-analytics"
+name_prefix                = "SOURCE_SQL_STREAM"
+kinesis_stream             = "custom-events-stream"
 lambda_version             = "$LATEST"
 sql_code                   = "CREATE OR REPLACE STREAM \"DESTINATION_SQL_STREAM\" (COUNTRY VARCHAR(16), COUNTRY_COUNT INT);\nCREATE OR REPLACE PUMP \"STREAM_PUMP\" AS INSERT INTO \"DESTINATION_SQL_STREAM\"\nSELECT STREAM\n\tCOUNTRY,\n\tCOUNT(*) AS COUNTRY_COUNT FROM \"SOURCE_SQL_STREAM_001\"\nGROUP BY COUNTRY , STEP(\"SOURCE_SQL_STREAM_001\".ROWTIME BY INTERVAL '60' SECOND);"
+
+function_name = "custom-events-pre-processing"
+filename      = "lambda.zip"
+description   = "pre-processing Lambda function"
+handler       = "transformer.handler"
+runtime       = "nodejs12.x"
+concurrency   = "5"

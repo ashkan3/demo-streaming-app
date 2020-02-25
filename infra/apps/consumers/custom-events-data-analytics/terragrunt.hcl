@@ -3,5 +3,5 @@ include {
 }
 
 terraform {
-  source = "../modules/lambda"
+  source = "../../../modules/kinesis-data-analytics"
 }
