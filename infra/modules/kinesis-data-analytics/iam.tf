@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
     ]
 
     resources = [
-      data.aws_lambda_function.pre_processing_lambda.arn
+      "${data.aws_lambda_function.pre_processing_lambda.arn}:${var.lambda_version}"
     ]
   }
 }

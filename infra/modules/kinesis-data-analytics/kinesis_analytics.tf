@@ -42,7 +42,7 @@ resource "aws_kinesis_analytics_application" "application" {
 
     processing_configuration {
       lambda {
-        resource_arn = data.aws_lambda_function.pre_processing_lambda.arn
+        resource_arn = "${data.aws_lambda_function.pre_processing_lambda.arn}:${var.lambda_version}"
         role_arn     = aws_iam_role.kinesis_analytics_role.arn
       }
     }

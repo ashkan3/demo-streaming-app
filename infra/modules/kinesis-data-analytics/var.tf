@@ -48,6 +48,12 @@ variable "lambda_name" {
   default     = ""
 }
 
+variable "lambda_version" {
+  type        = string
+  description = "Version of Lambda function to call for pre-processing records."
+  default     = ""
+}
+
 variable "sql_code" {
   type        = string
   description = "SQL Code to transform input data, and generate output."
