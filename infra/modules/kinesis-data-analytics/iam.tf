@@ -60,7 +60,41 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
     ]
 
     resources = [
-      "${data.aws_lambda_function.pre_processing_lambda.arn}:${var.lambda_version}"
+      # TODO specify resources to limit access
+      "*"
+    ]
+  }
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name               = "pre-processing-lambda-role"
+  assume_role_policy = file("${path.module}/roles/lambda_role.json")
+}
+
+resource "aws_iam_role_policy" "lambda_policy" {
+  role   = aws_iam_role.lambda_role.id
+  policy = data.aws_iam_policy_document.lambda_policy_document.json
+}
+
+data "aws_iam_policy_document" "lambda_policy_document" {
+  statement {
+    sid     = "AllowCreateLogGroup"
+    actions = ["logs:CreateLogGroup"]
+    resources = [
+      # TODO specify resources to limit access
+      "*"
+    ]
+  }
+
+  statement {
+    sid = "AllowLoggingToCloudWatch"
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [
+      # TODO specify resources to limit access
+      "*"
     ]
   }
 }

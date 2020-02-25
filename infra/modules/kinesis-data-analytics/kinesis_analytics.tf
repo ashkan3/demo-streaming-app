@@ -42,7 +42,7 @@ resource "aws_kinesis_analytics_application" "application" {
 
     processing_configuration {
       lambda {
-        resource_arn = "${data.aws_lambda_function.pre_processing_lambda.arn}:${var.lambda_version}"
+        resource_arn = module.lambda.arn
         role_arn     = aws_iam_role.kinesis_analytics_role.arn
       }
     }
@@ -52,4 +52,8 @@ resource "aws_kinesis_analytics_application" "application" {
     Environment = var.env
     App         = var.kinesis_analytics_app_name
   }
+
+  depends_on = [
+    module.lambda
+  ]
 }

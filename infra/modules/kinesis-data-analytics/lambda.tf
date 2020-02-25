@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 module lambda {
   source = "github.com/terraform-module/terraform-aws-lambda?ref=v2.9.0"
 
