@@ -42,15 +42,15 @@ variable "key_arn" {
   default = ""
 }
 
-variable "lambda_arn" {
+variable "lambda_name" {
   type = string
-  description = "ARN of pre-processing lambda."
+  description = "Name of the Lambda function that pre-processes records in the stream."
   default = ""
 }
 
-variable "lambda_version" {
+variable "sql_code" {
   type = string
-  description = "Version of lambda function to be called for pre-processing."
+  description = "SQL Code to transform input data, and generate output."
   default = ""
 }
 

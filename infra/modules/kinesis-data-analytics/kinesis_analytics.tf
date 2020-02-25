@@ -4,13 +4,14 @@ provider "aws" {
 
 resource "aws_kinesis_analytics_application" "application" {
   name = var.kinesis_analytics_app_name
+  code = var.sql_code
 
   inputs {
     name_prefix = var.name_prefix
 
     kinesis_stream {
       resource_arn = data.aws_kinesis_stream.stream.arn
-      role_arn     = aws_iam_role.role.arn
+      role_arn     = aws_iam_role.kinesis_analytics_role.arn
     }
 
     parallelism {
@@ -36,6 +37,13 @@ resource "aws_kinesis_analytics_application" "application" {
             record_row_path = "$"
           }
         }
+      }
+    }
+
+    processing_configuration {
+      lambda {
+        resource_arn = data.aws_lambda_function.pre_processing_lambda.arn
+        role_arn = aws_iam_role.kinesis_analytics_role.arn
       }
     }
   }

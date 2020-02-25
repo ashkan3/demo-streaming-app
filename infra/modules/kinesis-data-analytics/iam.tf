@@ -1,15 +1,15 @@
-resource "aws_iam_role" "role" {
-  name = "kinesis_analytics_role"
-  assume_role_policy = file("${path.module}/role.json")
+resource "aws_iam_role" "kinesis_analytics_role" {
+  name = "kinesis-analytics-role"
+  assume_role_policy = file("${path.module}/roles/kinesis_analytics_role.json")
 
 }
 
-resource "aws_iam_role_policy" "policy" {
-  role = aws_iam_role.role.id
-  policy = data.aws_iam_policy_document.kinesis_analytics_policy.json
+resource "aws_iam_role_policy" "kinesis_analytics_policy" {
+  role = aws_iam_role.kinesis_analytics_role.id
+  policy = data.aws_iam_policy_document.kinesis_analytics_policy_doc.json
 }
 
-data "aws_iam_policy_document" "kinesis_analytics_policy" {
+data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
   statement {
     sid = "ReadInputKinesis"
 
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy" {
     ]
 
     resources = [
-      "${var.lambda_arn}:${var.lambda_version}"
+      "${data.aws_lambda_function.pre_processing_lambda.arn}"
     ]
   }
 }
