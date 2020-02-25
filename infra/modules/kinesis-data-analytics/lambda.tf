@@ -1,19 +1,19 @@
 module lambda {
   source = "github.com/terraform-module/terraform-aws-lambda?ref=v2.9.0"
 
-  function_name  = var.function_name
-  filename       = "${path.cwd}/${var.filename}"
-  description    = var.description
-  handler        = var.handler
-  runtime        = var.runtime
-  memory_size    = var.memory_size
-  concurrency    = var.concurrency
+  function_name  = var.lambda_function_name
+  filename       = "${path.cwd}/${var.lambda_filename}"
+  description    = var.lambda_description
+  handler        = var.lambda_handler
+  runtime        = var.lambda_runtime
+  memory_size    = var.lambda_memory_size
+  concurrency    = var.lambda_concurrency
   lambda_timeout = var.lambda_timeout
-  log_retention  = var.log_retention
+  log_retention  = var.lambda_log_retention
   role_arn       = aws_iam_role.lambda_role.arn
 
   tags = {
     Environment = var.env
-    App         = var.function_name
+    App         = var.lambda_function_name
   }
 }

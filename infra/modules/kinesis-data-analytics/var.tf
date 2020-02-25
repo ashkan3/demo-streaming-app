@@ -39,7 +39,6 @@ variable "kinesis_stream" {
 variable "sql_code" {
   type        = string
   description = "SQL Code to transform input data, and generate output."
-  default     = ""
 }
 
 variable "record_columns" {
@@ -52,7 +51,7 @@ variable "function_name" {
   description = "A unique name for the Lambda Function."
 }
 
-variable "filename" {
+variable "lambda_filename" {
   type        = string
   description = "Name of Lambda zip file."
 }
@@ -62,28 +61,28 @@ variable "lambda_version" {
   description = "Version of Lambda function to call for pre-processing records."
 }
 
-variable "description" {
+variable "lambda_description" {
   type        = string
   description = "Description of what the Lambda Function does."
 }
 
-variable "handler" {
+variable "lambda_handler" {
   type        = string
   description = "The function entrypoint in Lambda code."
 }
 
-variable "runtime" {
+variable "lambda_runtime" {
   type        = string
   description = "Lambda function runtime, e.g. python3.7, java11."
 }
 
-variable "memory_size" {
+variable "lambda_memory_size" {
   type        = string
   description = "Amount of memory in MB your Lambda Function can use at runtime. Defaults to 128."
   default     = "128"
 }
 
-variable "concurrency" {
+variable "lambda_concurrency" {
   type        = string
   description = "The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations."
 
@@ -95,7 +94,7 @@ variable "lambda_timeout" {
   default     = "5"
 }
 
-variable "log_retention" {
+variable "lambda_log_retention" {
   type        = string
   description = "Specifies the number of days you want to retain log events in the specified log group."
   default     = "1"
