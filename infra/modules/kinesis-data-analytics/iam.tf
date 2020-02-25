@@ -1,11 +1,11 @@
 resource "aws_iam_role" "kinesis_analytics_role" {
-  name = "kinesis-analytics-role"
+  name               = "kinesis-analytics-role"
   assume_role_policy = file("${path.module}/roles/kinesis_analytics_role.json")
 
 }
 
 resource "aws_iam_role_policy" "kinesis_analytics_policy" {
-  role = aws_iam_role.kinesis_analytics_role.id
+  role   = aws_iam_role.kinesis_analytics_role.id
   policy = data.aws_iam_policy_document.kinesis_analytics_policy_doc.json
 }
 
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
       ]
     }
     condition {
-      test = "StringLike"
+      test     = "StringLike"
       variable = "kms:EncryptionContext:aws:kinesis:arn"
       values = [
         "arn:aws:kinesis:us-east-1:206612368495:stream/${var.kinesis_stream}"
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
     ]
 
     resources = [
-      "${data.aws_lambda_function.pre_processing_lambda.arn}"
+      data.aws_lambda_function.pre_processing_lambda.arn
     ]
   }
 }

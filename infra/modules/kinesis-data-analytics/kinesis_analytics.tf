@@ -1,5 +1,5 @@
 provider "aws" {
-  region     = var.region
+  region = var.region
 }
 
 resource "aws_kinesis_analytics_application" "application" {
@@ -22,8 +22,8 @@ resource "aws_kinesis_analytics_application" "application" {
       dynamic "record_columns" {
         for_each = var.record_columns
         content {
-          mapping = record_columns.value["mapping"]
-          name = record_columns.value["name"]
+          mapping  = record_columns.value["mapping"]
+          name     = record_columns.value["name"]
           sql_type = record_columns.value["sql_type"]
         }
 
@@ -43,7 +43,7 @@ resource "aws_kinesis_analytics_application" "application" {
     processing_configuration {
       lambda {
         resource_arn = data.aws_lambda_function.pre_processing_lambda.arn
-        role_arn = aws_iam_role.kinesis_analytics_role.arn
+        role_arn     = aws_iam_role.kinesis_analytics_role.arn
       }
     }
   }

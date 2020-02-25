@@ -1,3 +1,3 @@
-stream_name = "data-stream-demo"
+stream_name     = "data-stream-demo"
 encryption_type = "KMS"
-env = "dev"
+env             = "dev"
