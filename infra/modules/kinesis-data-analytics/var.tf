@@ -46,7 +46,17 @@ variable "record_columns" {
   description = "The Record Column mapping for the streaming source data element."
 }
 
-variable "function_name" {
+variable "output_stream_name" {
+  type        = string
+  description = "The Name of the in-application stream."
+}
+
+variable "output_record_format_type" {
+  type        = string
+  description = "The Format Type of the records on the output stream. Can be CSV or JSON."
+}
+
+variable "lambda_function_name" {
   type        = string
   description = "A unique name for the Lambda Function."
 }

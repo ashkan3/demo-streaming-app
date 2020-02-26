@@ -48,6 +48,18 @@ resource "aws_kinesis_analytics_application" "application" {
     }
   }
 
+  outputs {
+    name = var.output_stream_name
+    schema {
+      record_format_type = var.output_record_format_type
+    }
+
+    kinesis_firehose {
+      resource_arn = aws_kinesis_firehose_delivery_stream.extended_s3_stream.arn
+      role_arn     = aws_iam_role.kinesis_analytics_role.arn
+    }
+  }
+
   tags = {
     Environment = var.env
     App         = var.kinesis_analytics_app_name

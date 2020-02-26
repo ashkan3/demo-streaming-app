@@ -64,6 +64,18 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
       "*"
     ]
   }
+
+  statement {
+    actions = [
+      "firehose:DescribeDeliveryStream",
+      "firehose:PutRecord",
+      "firehose:PutRecordBatch"
+    ]
+    resources = [
+      "arn:aws:firehose:us-east-1:206612368495:deliverystream/${aws_kinesis_firehose_delivery_stream.extended_s3_stream.name}"
+    ]
+  }
+
 }
 
 resource "aws_iam_role" "lambda_role" {
@@ -95,6 +107,49 @@ data "aws_iam_policy_document" "lambda_policy_document" {
     resources = [
       # TODO specify resources to limit access
       "*"
+    ]
+  }
+}
+
+resource "aws_iam_role" "kinesis_firehose_role" {
+  name               = "kinesis-firehose-role"
+  assume_role_policy = file("${path.module}/roles/kinesis_firehose_role.json")
+
+}
+
+resource "aws_iam_role_policy" "kinesis_firehose_policy" {
+  role   = aws_iam_role.kinesis_firehose_role.id
+  policy = data.aws_iam_policy_document.kinesis_firehose_policy_doc.json
+}
+
+data "aws_iam_policy_document" "kinesis_firehose_policy_doc" {
+
+  statement {
+    sid = "ReadAndWriteToS3"
+
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:GetBucketLocation",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:PutObject"
+    ]
+
+    resources = [
+      "arn:aws:s3:::test-coveo-demo-app",
+      "arn:aws:s3:::test-coveo-demo-app/*",
+    ]
+  }
+
+  statement {
+    sid = "CreateCloudWatchLogStream"
+    actions = [
+      "logs:PutLogEvents"
+    ]
+
+    resources = [
+      "arn:aws:logs:us-east-1:206612368495:log-group:/aws/kinesisfirehose/test-firehose:log-stream:*"
     ]
   }
 }
