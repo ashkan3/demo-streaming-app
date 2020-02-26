@@ -137,8 +137,8 @@ data "aws_iam_policy_document" "kinesis_firehose_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:s3:::test-coveo-demo-app",
-      "arn:aws:s3:::test-coveo-demo-app/*",
+      "arn:aws:s3:::${aws_s3_bucket.destination_bucket.id}",
+      "arn:aws:s3:::${aws_s3_bucket.destination_bucket.id}/*",
     ]
   }
 
@@ -149,7 +149,7 @@ data "aws_iam_policy_document" "kinesis_firehose_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:logs:us-east-1:206612368495:log-group:/aws/kinesisfirehose/test-firehose:log-stream:*"
+      "arn:aws:logs:us-east-1:206612368495:log-group:/aws/kinesisfirehose/${aws_kinesis_firehose_delivery_stream.extended_s3_stream.name}:log-stream:*"
     ]
   }
 }
