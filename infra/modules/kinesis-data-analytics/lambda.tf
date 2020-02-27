@@ -2,7 +2,7 @@ module lambda {
   source = "github.com/terraform-module/terraform-aws-lambda?ref=v2.9.0"
 
   function_name  = var.lambda_function_name
-  filename       = "${path.cwd}/${var.lambda_filename}"
+  filename       = data.archive_file.pre_processing_lambda.output_path
   description    = var.lambda_description
   handler        = var.lambda_handler
   runtime        = var.lambda_runtime

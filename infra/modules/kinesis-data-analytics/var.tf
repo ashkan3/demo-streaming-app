@@ -66,8 +66,7 @@ variable "lambda_function_name" {
 
 variable "lambda_filename" {
   type        = string
-  description = "Name of Lambda zip file."
-  default     = "lambda.zip"
+  description = "Name of Lambda source file."
 }
 
 variable "lambda_version" {

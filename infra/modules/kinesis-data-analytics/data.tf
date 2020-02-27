@@ -14,3 +14,9 @@ data "terraform_remote_state" "kinesis_stream" {
 data "aws_s3_bucket" "destination_bucket" {
   bucket = var.destination_s3
 }
+
+data "archive_file" "pre_processing_lambda" {
+  source_file = "${path.cwd}/${var.lambda_filename}"
+  output_path = "lambda.zip"
+  type        = "zip"
+}

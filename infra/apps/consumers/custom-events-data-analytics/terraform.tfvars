@@ -14,6 +14,7 @@ record_columns = [
 env                        = "dev"
 kinesis_analytics_app_name = "custom-events-data-analytics"
 kinesis_stream             = "custom-events-stream"
+lambda_filename            = "transformer.js"
 lambda_function_name       = "custom-events-pre-processing"
 lambda_handler             = "transformer.handler"
 lambda_runtime             = "nodejs12.x"
