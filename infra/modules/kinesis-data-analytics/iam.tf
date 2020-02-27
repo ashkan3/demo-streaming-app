@@ -136,8 +136,8 @@ data "aws_iam_policy_document" "kinesis_firehose_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:s3:::${aws_s3_bucket.destination_bucket.id}",
-      "arn:aws:s3:::${aws_s3_bucket.destination_bucket.id}/*",
+      "arn:aws:s3:::${data.aws_s3_bucket.destination_bucket.id}",
+      "arn:aws:s3:::${data.aws_s3_bucket.destination_bucket.id}/*",
     ]
   }
 

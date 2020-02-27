@@ -115,3 +115,8 @@ variable "lambda_log_retention" {
   description = "Specifies the number of days you want to retain log events in the specified log group."
   default     = "1"
 }
+
+variable "destination_s3" {
+  type        = string
+  description = "Destinaiton S3 bucket for processed records coming from Kinesis Data Analytics app."
+}

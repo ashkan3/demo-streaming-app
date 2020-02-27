@@ -10,3 +10,7 @@ data "terraform_remote_state" "kinesis_stream" {
     region = var.region
   }
 }
+
+data "aws_s3_bucket" "destination_bucket" {
+  bucket = var.destination_s3
+}

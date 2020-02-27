@@ -1,10 +1,12 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 resource "aws_s3_bucket" "destination_bucket" {
-  bucket = "tf-test-bucket-test-test"
+  bucket = "coveo-events-stream"
   acl    = "private"
   # TODO
   # 1. apply a life cyle policy to this bucket
-  # 2. extract creation of this bucket from this module
-  #    so that can be shared between multiple consumers
 }
 
 resource "aws_s3_bucket_public_access_block" "destination_bucket" {
