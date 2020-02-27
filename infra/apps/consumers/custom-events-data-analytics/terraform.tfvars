@@ -13,18 +13,13 @@ record_columns = [
 
 env                        = "dev"
 kinesis_analytics_app_name = "custom-events-data-analytics"
-name_prefix                = "SOURCE_SQL_STREAM"
 kinesis_stream             = "custom-events-stream"
-lambda_version             = "$LATEST"
 lambda_function_name       = "custom-events-pre-processing"
-lambda_filename            = "lambda.zip"
-lambda_description         = "pre-processing Lambda function"
 lambda_handler             = "transformer.handler"
 lambda_runtime             = "nodejs12.x"
 lambda_timeout             = "60"
 lambda_concurrency         = "5"
-output_record_format_type  = "JSON"
-output_stream_name         = "DESTINATION_SQL_STREAM"
+destination_s3             = "coveo-events-stream"
 
 sql_code = <<EOF
 
