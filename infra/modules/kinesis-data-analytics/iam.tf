@@ -1,5 +1,5 @@
 resource "aws_iam_role" "kinesis_analytics_role" {
-  name               = "kinesis-analytics-role"
+  name               = "${var.kinesis_analytics_app_name}-kinesis-analytics-role"
   assume_role_policy = file("${path.module}/roles/kinesis_analytics_role.json")
 
 }
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name               = "pre-processing-lambda-role"
+  name               = "${var.lambda_function_name}-lambda-role"
   assume_role_policy = file("${path.module}/roles/lambda_role.json")
 }
 
@@ -112,9 +112,8 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 }
 
 resource "aws_iam_role" "kinesis_firehose_role" {
-  name               = "kinesis-firehose-role"
+  name               = "${var.kinesis_stream}-kinesis-firehose-role"
   assume_role_policy = file("${path.module}/roles/kinesis_firehose_role.json")
-
 }
 
 resource "aws_iam_role_policy" "kinesis_firehose_policy" {

@@ -1,5 +1,5 @@
 resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
-  name        = "terraform-kinesis-firehose-extended-s3-test-stream"
+  name        = "kinesis-firehose-${var.kinesis_stream}"
   destination = "extended_s3"
 
   extended_s3_configuration {
