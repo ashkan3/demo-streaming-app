@@ -17,6 +17,7 @@ variable "kinesis_analytics_app_name" {
 variable "name_prefix" {
   type        = string
   description = "The Name Prefix to use when creating an in-application stream."
+  default     = "SOURCE_SQL_STREAM"
 }
 
 variable "parallelism_count" {
@@ -49,11 +50,13 @@ variable "record_columns" {
 variable "output_stream_name" {
   type        = string
   description = "The Name of the in-application stream."
+  default     = "DESTINATION_SQL_STREAM"
 }
 
 variable "output_record_format_type" {
   type        = string
   description = "The Format Type of the records on the output stream. Can be CSV or JSON."
+  default     = "JSON"
 }
 
 variable "lambda_function_name" {
@@ -64,16 +67,19 @@ variable "lambda_function_name" {
 variable "lambda_filename" {
   type        = string
   description = "Name of Lambda zip file."
+  default     = "lambda.zip"
 }
 
 variable "lambda_version" {
   type        = string
   description = "Version of Lambda function to call for pre-processing records."
+  default     = "$LATEST"
 }
 
 variable "lambda_description" {
   type        = string
   description = "Description of what the Lambda Function does."
+  default     = "Pre-processing Lambda function."
 }
 
 variable "lambda_handler" {
