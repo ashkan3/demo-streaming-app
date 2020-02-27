@@ -2,6 +2,8 @@ import pandas as pd
 import logging
 import boto3
 import uuid
+import time
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +68,7 @@ class Producer:
         return send
 
 if __name__ == "__main__":
-    csv_file = "/home/data-files/groups.csv"
-    p = Producer("my-data-stream-app")
+    csv_file = str(sys.argv[1])
+    stream = str(sys.argv[2])
+    p = Producer(stream)
     p.send_to_kinesis(csv_file)
