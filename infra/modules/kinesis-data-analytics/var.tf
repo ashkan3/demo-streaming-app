@@ -119,3 +119,28 @@ variable "destination_s3" {
   type        = string
   description = "Destinaiton S3 bucket for processed records coming from Kinesis Data Analytics app."
 }
+
+variable "destination_s3_buffer_size" {
+  type        = string
+  description = <<EOF
+  "Buffer incoming data to the specified size, in MBs, before delivering it to the destination. The default value is 5.
+We recommend setting SizeInMBs to a value greater than the amount of data you typically ingest into the delivery stream
+in 10 seconds."
+EOF
+  default     = "5"
+}
+
+variable "destination_s3_buffer_interval" {
+  type        = string
+  description = "Buffer incoming data for the specified period of time, in seconds, before delivering it to the destination."
+  default     = "300"
+}
+
+variable "destination_s3_compression_format" {
+  type        = string
+  description = <<EOF
+  "The compression format. If no value is specified, the default is UNCOMPRESSED. Other supported values are GZIP, ZIP
+& Snappy. If the destination is redshift you cannot use ZIP or Snappy."
+EOF
+  default     = "UNCOMPRESSED"
+}

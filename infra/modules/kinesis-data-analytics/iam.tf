@@ -151,4 +151,28 @@ data "aws_iam_policy_document" "kinesis_firehose_policy_doc" {
       "arn:aws:logs:us-east-1:206612368495:log-group:/aws/kinesisfirehose/${aws_kinesis_firehose_delivery_stream.extended_s3_stream.name}:log-stream:*"
     ]
   }
+
+  statement {
+    sid = "ReadEncryptedInputKinesisStream"
+
+    actions = [
+      "kms:GenerateDataKey",
+      "kms:Decrypt",
+    ]
+
+    resources = [
+      data.terraform_remote_state.kinesis_stream.outputs.key_arn
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "kms:ViaService"
+      values   = ["s3.us-east-1.amazonaws.com"]
+    }
+    condition {
+      test     = "StringLike"
+      variable = "kms:EncryptionContext:aws:s3:arn"
+      values   = ["${data.aws_s3_bucket.destination_bucket.arn}/*", ]
+    }
+  }
 }
