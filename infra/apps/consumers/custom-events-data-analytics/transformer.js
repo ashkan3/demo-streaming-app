@@ -13,9 +13,8 @@ exports.handler = (event, context, callback) => {
 
         if (columns) {
             const result = {
-                searchId: columns[0],
-                datetime: columns[1],
-                groupName: columns[2],
+                customEventId: columns[0],
+                country: columns[6],
             };
             success++;
             return {

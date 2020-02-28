@@ -1,7 +1,7 @@
 record_columns = [
   {
     mapping  = "$.customEventId"
-    name     = "CUSTOM_EVENT_ID"
+    name     = "SEARCH_ID"
     sql_type = "VARCHAR(64)"
   },
   {
