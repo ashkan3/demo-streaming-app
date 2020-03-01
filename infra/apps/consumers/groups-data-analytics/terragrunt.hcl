@@ -5,3 +5,7 @@ include {
 terraform {
   source = "../../../modules/kinesis-data-analytics"
 }
+
+dependencies {
+  paths = ["../../streams/groups-stream", "../../../global/s3"]
+}

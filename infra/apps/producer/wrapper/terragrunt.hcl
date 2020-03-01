@@ -5,3 +5,7 @@ include {
 terraform {
   source = "../../../modules/lambda"
 }
+
+dependencies {
+  paths = ["../actor"]
+}
