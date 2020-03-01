@@ -1,0 +1,15 @@
+env                       = "dev"
+function_name             = "producer"
+filename                  = "producer.py"
+description               = "Produces events and send them to a Kinesis stream."
+handler                   = "producer.lambda_handler"
+runtime                   = "python3.7"
+memory_size               = "512"
+concurrency               = "100"
+timeout                   = "300"
+iam_policy_path           = "policy.tpl"
+layer_name                = "pandas"
+layer_s3_bucket           = "demo-lambda-layers"
+layer_s3_key              = "layer.zip"
+layer_compatible_runtimes = ["python3.7"]
+kinesis_streams           = ["custom-events-stream", "groups-stream"]
