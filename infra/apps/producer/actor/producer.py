@@ -4,6 +4,7 @@ import pandas as pd
 import logging
 import boto3
 import uuid
+import json
 from io import StringIO
 
 logger = logging.getLogger(__name__)
@@ -11,6 +12,7 @@ logger = logging.getLogger(__name__)
 PAYLOAD_NUM_OF_RECORD_LIMIT = 1000
 PAYLOAD_BYTES_LIMIT = 1000000
 NUM_OF_PAYLOADS_PER_SECOND = 2
+
 
 class Producer:
 
@@ -40,33 +42,30 @@ class Producer:
     def __load_data(self, bucket_name, file_name):
         data_bytes = self.__get_file_from_s3(bucket_name, file_name)
         data_string = str(data_bytes, 'utf-8')
-        data = StringIO(data_string)
-        data_frame = pd.read_csv(data)
-        return data_frame
+        return pd.read_csv(StringIO(data_string), low_memory=False).to_dict(orient='records')
 
     def send_to_kinesis(self, bucket_name, file_name):
         records = []
         current_bytes = 0
         row_count = 0
 
-        data = self.__load_data(bucket_name, file_name)
-        (rows, columns) = data.shape
-        total_row_count = rows
+        events = self.__load_data(bucket_name, file_name)
+        total_events_count = len(events)
 
-        for _, row in data.iterrows():
+        for event in events:
 
-            values = '|'.join(str(value) for value in row)
-            encoded_values = bytes(values, 'utf-8')
+            event_in_json = json.dumps(event)
+            event_encoded = bytes(event_in_json, 'utf-8')
 
             record = {
-                "Data": encoded_values,
+                "Data": event_encoded,
                 "PartitionKey": uuid.uuid4().hex
             }
 
             records.append(record)
             current_bytes += sys.getsizeof(record)
 
-            if self.__ready_to_send(len(records), current_bytes, row_count, total_row_count):
+            if self.__ready_to_send(len(records), current_bytes, row_count, total_events_count):
                 response = self.kinesis.put_records(
                     Records=records,
                     StreamName=self.stream_name
