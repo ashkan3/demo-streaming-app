@@ -59,62 +59,6 @@ variable "output_record_format_type" {
   default     = "JSON"
 }
 
-variable "lambda_function_name" {
-  type        = string
-  description = "A unique name for the Lambda Function."
-}
-
-variable "lambda_filename" {
-  type        = string
-  description = "Name of Lambda source file."
-}
-
-variable "lambda_version" {
-  type        = string
-  description = "Version of Lambda function to call for pre-processing records."
-  default     = "$LATEST"
-}
-
-variable "lambda_description" {
-  type        = string
-  description = "Description of what the Lambda Function does."
-  default     = "Pre-processing Lambda function."
-}
-
-variable "lambda_handler" {
-  type        = string
-  description = "The function entrypoint in Lambda code."
-}
-
-variable "lambda_runtime" {
-  type        = string
-  description = "Lambda function runtime, e.g. python3.7, java11."
-}
-
-variable "lambda_memory_size" {
-  type        = string
-  description = "Amount of memory in MB your Lambda Function can use at runtime. Defaults to 128."
-  default     = "128"
-}
-
-variable "lambda_concurrency" {
-  type        = string
-  description = "The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations."
-
-}
-
-variable "lambda_timeout" {
-  type        = string
-  description = "The amount of time your Lambda Function has to run in seconds."
-  default     = "5"
-}
-
-variable "lambda_log_retention" {
-  type        = string
-  description = "Specifies the number of days you want to retain log events in the specified log group."
-  default     = "1"
-}
-
 variable "destination_s3" {
   type        = string
   description = "Destinaiton S3 bucket for processed records coming from Kinesis Data Analytics app."
@@ -143,4 +87,106 @@ variable "destination_s3_compression_format" {
 & Snappy. If the destination is redshift you cannot use ZIP or Snappy."
 EOF
   default     = "UNCOMPRESSED"
+}
+
+variable "lambda_function_name" {
+  type        = string
+  description = "A unique name for the Lambda Function."
+  default     = null
+}
+
+variable "lambda_filename" {
+  type        = string
+  description = "Name of Lambda source file."
+  default     = null
+}
+
+variable "lambda_version" {
+  type        = string
+  description = "Version of Lambda function to call for pre-processing records."
+  default     = "$LATEST"
+}
+
+variable "lambda_description" {
+  type        = string
+  description = "Description of what the Lambda Function does."
+  default     = "Pre-processing Lambda function."
+}
+
+variable "lambda_handler" {
+  type        = string
+  description = "The function entrypoint in Lambda code."
+  default     = null
+}
+
+variable "lambda_runtime" {
+  type        = string
+  description = "Lambda function runtime, e.g. python3.7, java11."
+  default     = null
+}
+
+variable "lambda_memory_size" {
+  type        = string
+  description = "Amount of memory in MB your Lambda Function can use at runtime. Defaults to 128."
+  default     = "128"
+}
+
+variable "lambda_concurrency" {
+  type        = string
+  description = "The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations."
+  default     = null
+}
+
+variable "lambda_timeout" {
+  type        = string
+  description = "The amount of time your Lambda Function has to run in seconds."
+  default     = "5"
+}
+
+variable "lambda_log_retention" {
+  type        = string
+  description = "Specifies the number of days you want to retain log events in the specified log group."
+  default     = "1"
+}
+
+variable "lambda_publish" {
+  type        = bool
+  description = "Whether to publish creation/change as new Lambda Function Version. Defaults to true."
+  default     = true
+}
+
+variable "lambda_event_age_in_seconds" {
+  type        = number
+  description = "Maximum age of a request that Lambda sends to a function for processing in seconds. Valid values between 60 and 21600."
+  default     = 100
+}
+
+variable "lambda_retry_attempts" {
+  type        = number
+  description = "Maximum number of times to retry when the function returns an error. Valid values between 0 and 2. Defaults to 2."
+  default     = 0
+}
+
+variable "lambda_layer_name" {
+  type        = string
+  description = "A unique name for your Lambda Layer"
+  default     = null
+}
+
+variable "lambda_layer_s3_bucket" {
+  type        = string
+  description = "The S3 bucket location containing the function's deployment package."
+  default     = null
+}
+
+variable "lambda_layer_s3_key" {
+  type        = string
+  description = "The S3 key of an object containing the function's deployment package."
+  default     = null
+}
+
+variable "lambda_layer_compatible_runtimes" {
+  type        = list(string)
+  description = "A list of Runtimes this layer is compatible with. Up to 5 runtimes can be specified."
+  default     = null
 }

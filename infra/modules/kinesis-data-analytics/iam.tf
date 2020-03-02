@@ -79,16 +79,19 @@ data "aws_iam_policy_document" "kinesis_analytics_policy_doc" {
 }
 
 resource "aws_iam_role" "lambda_role" {
+  count              = var.lambda_filename != null ? 1 : 0
   name               = "${var.lambda_function_name}-lambda-role"
   assume_role_policy = file("${path.module}/roles/lambda_role.json")
 }
 
 resource "aws_iam_role_policy" "lambda_policy" {
-  role   = aws_iam_role.lambda_role.id
-  policy = data.aws_iam_policy_document.lambda_policy_document.json
+  count  = var.lambda_filename != null ? 1 : 0
+  role   = aws_iam_role.lambda_role[0].id
+  policy = data.aws_iam_policy_document.lambda_policy_document[0].json
 }
 
 data "aws_iam_policy_document" "lambda_policy_document" {
+  count = var.lambda_filename != null ? 1 : 0
   statement {
     sid     = "AllowCreateLogGroup"
     actions = ["logs:CreateLogGroup"]
@@ -112,7 +115,7 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 }
 
 resource "aws_iam_role" "kinesis_firehose_role" {
-  name               = "${var.kinesis_stream}-kinesis-firehose-role"
+  name               = "${var.kinesis_stream}-${var.kinesis_analytics_app_name}-kinesis-firehose-role"
   assume_role_policy = file("${path.module}/roles/kinesis_firehose_role.json")
 }
 

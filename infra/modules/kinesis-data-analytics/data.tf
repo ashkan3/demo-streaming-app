@@ -16,6 +16,7 @@ data "aws_s3_bucket" "destination_bucket" {
 }
 
 data "archive_file" "pre_processing_lambda" {
+  count       = var.lambda_filename != null ? 1 : 0
   source_file = "${path.cwd}/${var.lambda_filename}"
   output_path = "lambda.zip"
   type        = "zip"

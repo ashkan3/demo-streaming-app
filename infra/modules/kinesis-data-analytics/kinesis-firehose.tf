@@ -1,5 +1,5 @@
 resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
-  name        = "kinesis-firehose-${var.kinesis_stream}"
+  name        = var.kinesis_analytics_app_name
   destination = "extended_s3"
 
   extended_s3_configuration {

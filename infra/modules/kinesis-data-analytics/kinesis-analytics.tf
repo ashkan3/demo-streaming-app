@@ -2,6 +2,10 @@ provider "aws" {
   region = var.region
 }
 
+locals {
+  lambda = aws_lambda_function.pre_processing_lambda.*
+}
+
 resource "aws_kinesis_analytics_application" "application" {
   name = var.kinesis_analytics_app_name
   code = var.sql_code
@@ -40,10 +44,16 @@ resource "aws_kinesis_analytics_application" "application" {
       }
     }
 
-    processing_configuration {
-      lambda {
-        resource_arn = module.lambda.arn
-        role_arn     = aws_iam_role.kinesis_analytics_role.arn
+    dynamic "processing_configuration" {
+      for_each = local.lambda
+      content {
+        dynamic "lambda" {
+          for_each = local.lambda
+          content {
+            resource_arn = lambda.value["arn"]
+            role_arn     = aws_iam_role.kinesis_analytics_role.arn
+          }
+        }
       }
     }
   }
@@ -66,6 +76,6 @@ resource "aws_kinesis_analytics_application" "application" {
   }
 
   depends_on = [
-    module.lambda
+    aws_lambda_function.pre_processing_lambda
   ]
 }
