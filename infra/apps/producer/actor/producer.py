@@ -42,7 +42,7 @@ class Producer:
     def __load_data(self, bucket_name, file_name):
         data_bytes = self.__get_file_from_s3(bucket_name, file_name)
         data_string = str(data_bytes, 'utf-8')
-        return pd.read_csv(StringIO(data_string), low_memory=False).to_dict(orient='records')
+        return pd.read_csv(StringIO(data_string), low_memory=True).to_dict(orient='records')
 
     def send_to_kinesis(self, bucket_name, file_name):
         records = []
@@ -95,5 +95,9 @@ class Producer:
 
 
 def lambda_handler(event, context):
-    p = Producer('groups-stream')
-    p.send_to_kinesis('data-files-demo', 'groups.csv')
+    stream = event.get("stream")
+    bucket_name = event.get("bucket")
+    file_name = event.get("file")
+
+    p = Producer(stream)
+    p.send_to_kinesis(bucket_name, file_name)
