@@ -6,7 +6,7 @@ data "terraform_remote_state" "kinesis_stream" {
   backend = "s3"
   config = {
     bucket = "demo-app-terraform-state-files"
-    key    = "apps/streams/${var.kinesis_stream}/terraform.tfstate"
+    key    = "${var.env}/apps/streams/${var.kinesis_stream}/terraform.tfstate"
     region = var.region
   }
 }

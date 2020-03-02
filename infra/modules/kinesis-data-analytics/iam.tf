@@ -1,5 +1,5 @@
 resource "aws_iam_role" "kinesis_analytics_role" {
-  name               = "${var.kinesis_analytics_app_name}-kinesis-analytics-role"
+  name               = "${var.kinesis_analytics_app_name}-analytics-role"
   assume_role_policy = file("${path.module}/roles/kinesis_analytics_role.json")
 
 }
@@ -115,7 +115,7 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 }
 
 resource "aws_iam_role" "kinesis_firehose_role" {
-  name               = "${var.kinesis_stream}-${var.kinesis_analytics_app_name}-kinesis-firehose-role"
+  name               = "${var.kinesis_stream}-${var.kinesis_analytics_app_name}-firehose-role"
   assume_role_policy = file("${path.module}/roles/kinesis_firehose_role.json")
 }
 

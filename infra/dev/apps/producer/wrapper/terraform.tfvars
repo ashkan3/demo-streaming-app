@@ -1,4 +1,3 @@
-env             = "dev"
 function_name   = "wrapper"
 filename        = "producer-wrapper.py"
 description     = "Wrapper for producer function."

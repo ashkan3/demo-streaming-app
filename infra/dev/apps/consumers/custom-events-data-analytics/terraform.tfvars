@@ -11,7 +11,6 @@ record_columns = [
   }
 ]
 
-env                        = "dev"
 kinesis_analytics_app_name = "custom-events-data-analytics"
 kinesis_stream             = "custom-events-stream"
 lambda_filename            = "transformer.js"

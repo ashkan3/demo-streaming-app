@@ -1,4 +1,3 @@
-env                       = "dev"
 function_name             = "producer"
 filename                  = "producer.py"
 description               = "Produces events and send them to a Kinesis stream."
