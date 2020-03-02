@@ -1,10 +1,9 @@
 FROM python:3.7
 
 ARG terraform_version=0.11.14
-ARG terragrunt-version=v0.22.3
+ARG terragrunt_version=v0.22.3
 RUN apt-get update -y && \
-    apt-get install vim \
-    default-jre -y
+    apt-get install vim -y
 
 RUN wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip -O terraform.zip && \
     unzip terraform.zip && \
@@ -15,4 +14,4 @@ RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/${terragru
     chmod +x terragrunt && \
     mv terragrunt /usr/local/bin
 
-RUN pip3.7 install boto3 amazon_kclpy pandas aws_kinesis_agg awscli
+RUN pip3.7 install boto3 pandas awscli
