@@ -7,7 +7,7 @@
 1. Create a `config` or `credentials` file anywhere on your machine containing desired AWS credentials.
  
 ### Deploy  
-Run `./deploy.sh`
+From the root of the repo run `./deploy.sh`
 
 It takes a bit longer for the deployment container to start the first time `deploy.sh` runs as it needs to build the Docker image with required tooling for deployment. When container starts running, user will be prompted by interactive terragrunt to answer a few questions.
 
