@@ -1,6 +1,6 @@
 FROM python:3.7
 
-ARG terraform_version=0.11.14
+ARG terraform_version=0.12.21
 ARG terragrunt_version=v0.22.3
 RUN apt-get update -y && \
     apt-get install vim -y
