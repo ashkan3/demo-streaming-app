@@ -1,6 +1,6 @@
 set -ex
 
-AWS_CREDS_DIR=$1
+read -p "Enter the path to your AWS config or credentials file (defaults to ~/.aws):" AWS_CREDS_DIR
 if [ -z "${AWS_CREDS_DIR}" ];then
   AWS_CREDS_DIR=~/.aws
 fi
