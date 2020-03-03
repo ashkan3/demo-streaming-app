@@ -17,7 +17,7 @@ ${jsonencode({
         {
             "Effect" = "Allow"
             "Action" = "s3:GetObject"
-            "Resource" = "arn:aws:s3:::data-files-demo/*"
+            "Resource" = "arn:aws:s3:::${events_bucket}/*"
         },
         {
             "Effect" = "Allow",

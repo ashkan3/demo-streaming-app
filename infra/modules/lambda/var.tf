@@ -70,6 +70,12 @@ variable "kinesis_streams" {
   default     = []
 }
 
+variable "events_bucket" {
+  type        = string
+  description = "The S3 bucket where CSV evnet files live."
+  default     = null
+}
+
 variable "layer_name" {
   type        = string
   description = "Name of Lambda layer."

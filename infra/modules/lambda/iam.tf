@@ -10,7 +10,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
     account_id    = data.aws_caller_identity.current.account_id,
     function_name = var.function_name,
     key_arns      = local.key_arns,
-    kinesis_arns  = local.kinesis_arns
+    kinesis_arns  = local.kinesis_arns,
+    events_bucket = var.events_bucket
   })
 }
 

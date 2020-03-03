@@ -12,3 +12,4 @@ layer_s3_bucket           = "demo-lambda-layers"
 layer_s3_key              = "layer.zip"
 layer_compatible_runtimes = ["python3.7"]
 kinesis_streams           = ["custom-events-stream", "groups-stream", "searches"]
+events_bucket             = "data-files-demo"
