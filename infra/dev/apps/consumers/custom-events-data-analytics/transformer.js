@@ -9,18 +9,25 @@ exports.handler = (event, context, callback) => {
     const output = event.records.map((record) => {
 
         const payload = (Buffer.from(record.data, 'base64')).toString('ascii');
-        const columns = payload.split('|');
+        const json_doc = JSON.parse(payload.replace("NaN","null"));
 
-        if (columns) {
-            const result = {
-                customEventId: columns[0],
-                country: columns[6],
-            };
-            success++;
+        if (Object.keys(json_doc).length > 0) {
+            delete json_doc.originLevel2;
+            delete json_doc.userName;
+            delete json_doc.userId;
+            delete json_doc.splitTestRunName;
+            delete json_doc.customEventOriginLevel2;
+            delete json_doc.c_loading_time;
+            delete json_doc.c_pagelanguage;
+            delete json_doc.c_card_type;
+            delete json_doc.c_browser_time;
+            delete json_doc.c_pageaudience;
+            delete json_doc.c_workgroup;
+            delete json_doc.success++;
             return {
                 recordId: record.recordId,
                 result: 'Ok',
-                data: (Buffer.from(JSON.stringify(result))).toString('base64'),
+                data: (Buffer.from(JSON.stringify(json_doc))).toString('base64'),
             };
         } else {
             failure++;
